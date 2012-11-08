@@ -11,7 +11,6 @@ import org.apache.http.util.EntityUtils;
 import com.google.gson.reflect.TypeToken;
 import com.threetaps.model.Category;
 import com.threetaps.model.Location;
-import com.threetaps.model.Source;
 
 public class ReferenceClient extends Client {
 	
@@ -26,7 +25,7 @@ public class ReferenceClient extends Client {
 
 	public List<Category> getCategories() throws IOException {
 
-		final HttpResponse response = this.executeGet("/reference/category");
+		final HttpResponse response = this.executeGet("/reference/categories");
 		final String responseString = EntityUtils.toString(response.getEntity());
 
 		final Type type = new TypeToken<Collection<Category>>() {}.getType();
@@ -34,42 +33,5 @@ public class ReferenceClient extends Client {
 		@SuppressWarnings("unchecked")
 		final List<Category> categories = (List<Category>)gson.fromJson(responseString, type);
 		return categories;
-	}
-	
-	public Category getCategory(String categoryCode) throws IOException {
-
-		final HttpResponse response = this.executeGet("/reference/category/" + categoryCode);
-		final String responseString = EntityUtils.toString(response.getEntity());
-
-		final Type type = new TypeToken<Collection<Category>>() {}.getType();
-		
-		@SuppressWarnings("unchecked")
-		final List<Category> categories = (List<Category>)gson.fromJson(responseString, type);
-		
-		return (categories.size() < 1) ? null : categories.get(0);
-	}	
-
-	public List<Location> getLocations() throws IOException {
-
-		final HttpResponse response = this.executeGet("/reference/location");
-		final String responseString = EntityUtils.toString(response.getEntity());
-
-		final Type type = new TypeToken<Collection<Location>>() {}.getType();
-
-		@SuppressWarnings("unchecked")
-		final List<Location> locations = (List<Location>)gson.fromJson(responseString, type);
-		return locations;
-	}
-
-	public List<Source> getSources() throws IOException {
-		
-		final HttpResponse response = this.executeGet("/reference/source", null);
-		final String responseString = EntityUtils.toString(response.getEntity());
-
-		final Type type = new TypeToken<Collection<Source>>() {}.getType();
-
-		@SuppressWarnings("unchecked")
-		final List<Source> sources = (List<Source>)gson.fromJson(responseString, type);
-		return sources;
 	}
 }

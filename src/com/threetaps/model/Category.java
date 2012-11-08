@@ -1,31 +1,71 @@
 package com.threetaps.model;
 
-import java.util.List;
+import com.google.gson.*;
 
-import com.threetaps.model.annotations.Annotation;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Category {
 
-	private String group;
+    private ArrayList<Category> children;
+    private boolean isCategoryClass = false; // if true, indicates the Category has children
 	private String code;
-	private String category;
+	private String categoryName;
 
-	private List<Annotation> annotations;
+    public static JsonDeserializer<Category> getGsonDeserializer() {
+        return new JsonDeserializer<Category>() {
+            @Override
+            public Category deserialize(JsonElement jsonElement, Type type,
+                    JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                JsonObject payload = jsonElement.getAsJsonObject();
 
-	public String getGroup() {
-		return group;
-	}
+                Category category = new Category();
+                category.isCategoryClass = true;
+                category.children = new ArrayList<Category>();
+                category.setCode(payload.get("categoryClass").getAsString());
+                category.setCategoryName(payload.get("categoryClassName").getAsString());
 
-	public void setGroup(String group) {
-		this.group = group;
-	}
+                Iterator<JsonElement> iterator = payload.getAsJsonArray("categories").iterator();
+                while (iterator.hasNext()) {
+                    JsonObject child = iterator.next().getAsJsonObject();
 
-	public String getCategory() {
-		return category;
+                    Category childCategory = new Category();
+                    childCategory.setCode(child.get("category").getAsString());
+                    childCategory.setCategoryName(child.get("categoryName").getAsString());
+
+                    category.children.add(childCategory);
+                }
+
+                return category;
+            }
+        };
+    }
+
+    // hack to build the category class -> categories relationship --KT
+    private Category() {
+
+    }
+
+    public boolean isCategoryClass() {
+        return isCategoryClass;
+    }
+
+    public List<Category> getChildren() {
+        if (!isCategoryClass) {
+            throw new IllegalStateException("cannot request children of Category that is not itself a category class");
+        }
+
+        return children;
+    }
+
+	public String getCategoryName() {
+		return categoryName;
 	}
 	
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public String getCode() {
@@ -34,13 +74,5 @@ public class Category {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public List<Annotation> getAnnotations() {
-		return annotations;
-	}
-
-	public void setAnnotations(List<Annotation> annotations) {
-		this.annotations = annotations;
 	}
 }

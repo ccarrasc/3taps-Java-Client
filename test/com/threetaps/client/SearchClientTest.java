@@ -20,7 +20,7 @@ public class SearchClientTest extends TestCase {
 	protected SearchClient searchClient;
 	
 	protected void setUp() {
-		searchClient = ThreetapsClient.getInstance().setAuthID("jmrfhu59cnmtnzusshd62pbg").getSearchClient();
+		searchClient = ThreetapsClient.getInstance().setAuthToken("75c8e3851e874fe692a8199022a06645").getSearchClient();
 	}
 	
 	@Test
@@ -29,9 +29,8 @@ public class SearchClientTest extends TestCase {
 		final SearchRequest searchRequest = new SearchRequest();
 	
 		searchRequest.setText("Nintendo");
-		searchRequest.setSource("E_BAY");
-		searchRequest.setLocation("LAX");
-		
+		searchRequest.setSource("CRAIG");
+
 		SearchResponse searchResponse = searchClient.search(searchRequest);
 		assert searchResponse.getSuccess().booleanValue() == true;
 		System.out.println(searchResponse.getNumResults().intValue());
@@ -43,9 +42,8 @@ public class SearchClientTest extends TestCase {
 		final SearchRequest searchRequest = new SearchRequest();
 	
 		searchRequest.setText("Nintendo");
-		searchRequest.setSource("E_BAY");
-		searchRequest.setLocation("LAX");
-		
+		searchRequest.setSource("CRAIG");
+
 		int count = searchClient.count(searchRequest);
 		assert count != 0;
 	}
@@ -62,20 +60,6 @@ public class SearchClientTest extends TestCase {
 		
 		final SummaryResponse summaryResponse = searchClient.summary(summaryRequest);
 		assert summaryResponse.getExecTimeMs().intValue() > 0;
-		assert summaryResponse.getTotals().get("E_BAY") > 0;
+		assert summaryResponse.getTotals().get("CRAIG") > 0;
 	}
-	
-	@Test
-	public void testRange() throws IOException {
-		SearchRequest searchRequest = new SearchRequest();
-		searchRequest.setText("Nintendo");
-		
-		RangeRequest rangeRequest = new RangeRequest();
-		rangeRequest.setSearchRequest(searchRequest);
-		rangeRequest.addField("price");
-		
-		RangeResponse response = searchClient.range(rangeRequest);
-		assert response.getRanges().get("price").getMin() == 0;
-		assert response.getRanges().get("price").getMax() > 0;
-	}	
 }

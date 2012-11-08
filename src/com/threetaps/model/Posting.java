@@ -1,247 +1,229 @@
 package com.threetaps.model;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+
 public class Posting {
-	
-	private String postKey;
-	private String heading;
-	private String body;
-	private String category;
-	private String source;
-	private String location;
-	
-	private Float longitude;
-	private Float latitude;
-	
-	private String language;
-	
-	private Float price;
-	private String currency;
-	
-	private String externalURL;
-	private String externalID;
-	private String accountName;
-	private String accountID;
-	
-	private Date timestamp;
-	private Date expires;
-	private Date indexed;
 
-	private List<String> images;
-	
-	private List<Map<String, String>> errors;
-	
-	private Map<String, Object> annotations;
-	
-	private Boolean exists;
-	private List<PostingHistory> history;
-	private String status;
+    private int accountId;
+    private JsonObject annotations;
+    private String body;
+    private String category;
+    private String categoryClass;
+    private String categoryClassName;
+    private String categoryName;
+    private String currency;
+    private Date expirationTimestamp;
+    private int flags;
+    private boolean hasImage;
+    private String heading;
+    private String html;
+    private long id; // 3taps-specific unique identifier
+    private List<Map<String, String>> images;
+    private boolean immortal;
+    private Date indexed;
+    private String language;
+    private Location location;
+    private Date postingTimestamp;
+    private float price;
+    private String source;
+    private String sourceId;
+    private String sourceUrl;
 
-	public String getPostKey() {
-		return postKey;
-	}
+    public int getAccountId() {
+        return accountId;
+    }
 
-	public void setPostKey(String postKey) {
-		this.postKey = postKey;
-	}
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
 
-	public String getHeading() {
-		return heading;
-	}
+    public JsonObject getAnnotations() {
+        return annotations;
+    }
 
-	public void setHeading(String heading) {
-		this.heading = heading;
-	}
+    public void setAnnotations(JsonObject annotations) {
+        this.annotations = annotations;
+    }
 
-	public String getBody() {
-		return body;
-	}
+    public String getBody() {
+        return body;
+    }
 
-	public void setBody(String body) {
-		this.body = body;
-	}
+    public void setBody(String body) {
+        this.body = body;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public String getSource() {
-		return source;
-	}
+    public String getCategoryClass() {
+        return categoryClass;
+    }
 
-	public void setSource(String source) {
-		this.source = source;
-	}
+    public void setCategoryClass(String categoryClass) {
+        this.categoryClass = categoryClass;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public String getCategoryClassName() {
+        return categoryClassName;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public void setCategoryClassName(String categoryClassName) {
+        this.categoryClassName = categoryClassName;
+    }
 
-	public float getLongitude() {
-		return longitude;
-	}
+    public String getCategoryName() {
+        return categoryName;
+    }
 
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
-	}
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
-	public float getLatitude() {
-		return latitude;
-	}
+    public String getCurrency() {
+        return currency;
+    }
 
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
-	}
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 
-	public String getLanguage() {
-		return language;
-	}
+    public Date getExpirationTimestamp() {
+        return expirationTimestamp;
+    }
 
-	public void setLanguage(String language) {
-		this.language = language;
-	}
+    public void setExpirationTimestamp(Date expirationTimestamp) {
+        this.expirationTimestamp = expirationTimestamp;
+    }
 
-	public float getPrice() {
-		return price;
-	}
+    public int getFlags() {
+        return flags;
+    }
 
-	public void setPrice(float price) {
-		this.price = price;
-	}
+    public void setFlags(int flags) {
+        this.flags = flags;
+    }
 
-	public String getCurrency() {
-		return currency;
-	}
+    public boolean isHasImage() {
+        return hasImage;
+    }
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
+    public void setHasImage(boolean hasImage) {
+        this.hasImage = hasImage;
+    }
 
-	public String getExternalURL() {
-		return externalURL;
-	}
+    public String getHeading() {
+        return heading;
+    }
 
-	public void setExternalURL(String externalURL) {
-		this.externalURL = externalURL;
-	}
+    public void setHeading(String heading) {
+        this.heading = heading;
+    }
 
-	public String getExternalID() {
-		return externalID;
-	}
+    public String getHtml() {
+        return html;
+    }
 
-	public void setExternalID(String externalID) {
-		this.externalID = externalID;
-	}
+    public void setHtml(String html) {
+        this.html = html;
+    }
 
-	public String getAccountName() {
-		return accountName;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getAccountID() {
-		return accountID;
-	}
+    public List<Map<String, String>> getImages() {
+        return images;
+    }
 
-	public void setAccountID(String accountID) {
-		this.accountID = accountID;
-	}
+    public void setImages(List<Map<String, String>> images) {
+        this.images = images;
+    }
 
-	public Date getTimestamp() {
-		return timestamp;
-	}
+    public boolean isImmortal() {
+        return immortal;
+    }
 
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
-	}
+    public void setImmortal(boolean immortal) {
+        this.immortal = immortal;
+    }
 
-	public Date getExpires() {
-		return expires;
-	}
+    public Date getIndexed() {
+        return indexed;
+    }
 
-	public void setExpires(Date expires) {
-		this.expires = expires;
-	}
+    public void setIndexed(Date indexed) {
+        this.indexed = indexed;
+    }
 
-	public Map<String, Object> getAnnotations() {
-		return annotations;
-	}
+    public String getLanguage() {
+        return language;
+    }
 
-	public void setAnnotations(Map<String, Object> annotations) {
-		this.annotations = annotations;
-	}
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 
-	public void setErrors(List<Map<String, String>> errors) {
-		this.errors = errors;
-	}
+    public Location getLocation() {
+        return location;
+    }
 
-	public List<Map<String, String>> getErrors() {
-		return errors;
-	}
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
-	public void setIndexed(Date indexed) {
-		this.indexed = indexed;
-	}
+    public Date getPostingTimestamp() {
+        return postingTimestamp;
+    }
 
-	public Date getIndexed() {
-		return indexed;
-	}
-	
-	public Boolean getExists() {
-		return exists;
-	}
+    public void setPostingTimestamp(Date postingTimestamp) {
+        this.postingTimestamp = postingTimestamp;
+    }
 
-	public void setExists(Boolean exists) {
-		this.exists = exists;
-	}
+    public float getPrice() {
+        return price;
+    }
 
-	public List<PostingHistory> getHistory() {
-		return history;
-	}
+    public void setPrice(float price) {
+        this.price = price;
+    }
 
-	public void setHistory(List<PostingHistory> history) {
-		this.history = history;
-	}
+    public String getSource() {
+        return source;
+    }
 
-	public void setLongitude(Float longitude) {
-		this.longitude = longitude;
-	}
+    public void setSource(String source) {
+        this.source = source;
+    }
 
-	public void setLatitude(Float latitude) {
-		this.latitude = latitude;
-	}
+    public String getSourceId() {
+        return sourceId;
+    }
 
-	public void setPrice(Float price) {
-		this.price = price;
-	}	
-	
-	public String getStatus() {
-		return status;
-	}
-	
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+    }
 
-	public List<String> getImages() {
-		return images;
-	}
+    public String getSourceUrl() {
+        return sourceUrl;
+    }
 
-	public void setImages(List<String> images) {
-		this.images = images;
-	}
-
+    public void setSourceUrl(String sourceUrl) {
+        this.sourceUrl = sourceUrl;
+    }
 }

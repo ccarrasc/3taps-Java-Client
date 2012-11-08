@@ -18,7 +18,7 @@ public class SearchClient extends Client {
 
 	private static SearchClient instance;
 
-	private SearchClient() {};
+	private SearchClient() {}
 	
 	public synchronized static SearchClient getInstance() {
 		if (instance == null) instance = new SearchClient();
@@ -33,15 +33,8 @@ public class SearchClient extends Client {
 		return (SearchResponse) gson.fromJson(responseString, SearchResponse.class);		
 	}
 
-	public RangeResponse range(RangeRequest rangeRequest) throws IOException {
-		final HttpResponse response = this.executeGet("/search", rangeRequest.getQueryParams());
-		final String responseString = EntityUtils.toString(response.getEntity());
-		
-		return (RangeResponse) gson.fromJson(responseString, RangeResponse.class);			
-	}
-
 	public SummaryResponse summary(SummaryRequest summaryRequest) throws IOException {
-		final HttpResponse response = this.executeGet("/search", summaryRequest.getQueryParams());
+		final HttpResponse response = this.executeGet("/search/summary", summaryRequest.getQueryParams());
 		final String responseString = EntityUtils.toString(response.getEntity());
 		
 		return (SummaryResponse) gson.fromJson(responseString, SummaryResponse.class);	

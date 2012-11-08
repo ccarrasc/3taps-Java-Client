@@ -3,10 +3,13 @@ package com.threetaps.client;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import com.threetaps.model.Category;
+import com.threetaps.util.ThreetapsDateDeserializer;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -37,9 +40,11 @@ public abstract class Client {
 
 	private HttpClient httpClient = new DefaultHttpClient();
 
-	protected Gson gson = new GsonBuilder().setDateFormat(Constants.DATE_FORMAT)
-		.excludeFieldsWithModifiers(Modifier.TRANSIENT)
-		.registerTypeAdapter(Map.class, new GeneralObjectDeserializer()).create();
+	protected Gson gson = new GsonBuilder()
+		    .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+            .registerTypeAdapter(Date.class, new ThreetapsDateDeserializer())
+		    .registerTypeAdapter(Map.class, new GeneralObjectDeserializer())
+            .registerTypeAdapter(Category.class, Category.getGsonDeserializer()).create();
 
 	protected Client() {
 		this(DEFAULT_URL, DEFAULT_PORT);
@@ -64,7 +69,8 @@ public abstract class Client {
 			IOException {
 
 		final List<NameValuePair> qparams = new ArrayList<NameValuePair>();
-		qparams.add(new BasicNameValuePair(ThreetapsClient.AUTH_ID_KEY, ThreetapsClient.getInstance().getAuthID()));
+		qparams.add(new BasicNameValuePair(ThreetapsClient.AUTH_TOKEN_KEY,
+                ThreetapsClient.getInstance().getAuthToken()));
 		
 		if (params != null) {
 			for (Map.Entry<String, String> param : params.entrySet()) {
@@ -76,11 +82,13 @@ public abstract class Client {
 		return execute(request);
 	}
 
+    // the posting API will need this, when supported.. so I left it here --KT  11/6/2012
 	protected HttpResponse executePost(String endpoint, Map<String, String> params) throws ClientProtocolException,
 			IOException {
 
 		final List<NameValuePair> qparams = new ArrayList<NameValuePair>();
-		qparams.add(new BasicNameValuePair(ThreetapsClient.AUTH_ID_KEY, ThreetapsClient.getInstance().getAuthID()));
+		qparams.add(new BasicNameValuePair(ThreetapsClient.AUTH_TOKEN_KEY,
+                ThreetapsClient.getInstance().getAuthToken()));
 		
 		if (params != null) {
 			for (Map.Entry<String, String> param : params.entrySet()) {
